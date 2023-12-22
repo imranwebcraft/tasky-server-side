@@ -18,8 +18,14 @@ router.get('/todos', async (req, res) => {
 // post a todo
 router.post('/todos', async (req, res) => {
 	try {
-		const { userEmail, task_name, task_description, deadline, priority } =
-			req.body;
+		const {
+			userEmail,
+			task_name,
+			task_description,
+			deadline,
+			priority,
+			status,
+		} = req.body;
 
 		const todo = new Todo({
 			userEmail: userEmail,
@@ -27,6 +33,7 @@ router.post('/todos', async (req, res) => {
 			task_description: task_description,
 			deadline: deadline,
 			priority: priority,
+			status: status,
 		});
 		await todo.save();
 		res.send(todo);
@@ -52,6 +59,19 @@ router.delete('/todos/:id', async (req, res) => {
 		const todo = await Todo.findByIdAndDelete(req.params.id);
 
 		res.send('Deleted Successfull');
+	} catch (err) {
+		res.status(500).json('Internal Server Error');
+	}
+});
+
+//  update task status by id
+
+router.put('/todos/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const { status } = req.body;
+		const todo = await Todo.findByIdAndUpdate(id, { status: status });
+		res.send(todo);
 	} catch (err) {
 		res.status(500).json('Internal Server Error');
 	}

@@ -21,6 +21,9 @@ const todoSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	status: {
+		type: String,
+	},
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
