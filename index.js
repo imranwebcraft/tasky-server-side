@@ -11,7 +11,11 @@ const todoRoutes = require('./Routes/todoRoute');
 const app = express();
 app.use(
 	cors({
-		origin: ['http://localhost:5173'],
+		origin: [
+			'http://localhost:5173',
+			'https://tasky-c4fd3.web.app',
+			'https://tasky-c4fd3.firebaseapp.com',
+		],
 	})
 );
 app.use(express.json());
