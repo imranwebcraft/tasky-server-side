@@ -4,6 +4,9 @@ const cors = require('cors');
 const port = process.env.PORT || 5000;
 require('dotenv').config();
 
+// Routes
+const todoRoutes = require('./Routes/todoRoute');
+
 // App variable
 const app = express();
 app.use(
@@ -20,6 +23,9 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
 	console.log(`Tasky Server is running on port ${port}`);
 });
+
+// use route
+app.use(todoRoutes);
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.all('*', (req, res, next) => {
